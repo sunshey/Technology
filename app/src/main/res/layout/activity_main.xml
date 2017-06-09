@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <include layout="@layout/activity_common_header" />
+
+    <FrameLayout
+        android:id="@+id/container"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dimen_05"
+        android:background="@color/gray_bfbfbf" />
+
+    <RadioGroup
+        android:id="@+id/radioGroup"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_gravity="bottom"
+        android:layout_marginTop="@dimen/dimen_2"
+        android:orientation="horizontal">
+
+        <RadioButton
+            android:id="@+id/rb_home"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:button="@null"
+            android:checked="true"
+            android:drawableTop="@drawable/home_selector"
+            android:gravity="center"
+            android:text="@string/home"
+            android:textColor="@color/tv_color_selector"
+            android:textSize="@dimen/text_12" />
+
+        <RadioButton
+            android:id="@+id/rb_community"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:button="@null"
+            android:drawableTop="@drawable/community_selector"
+            android:gravity="center"
+            android:text="@string/community"
+            android:textColor="@color/tv_color_selector"
+            android:textSize="@dimen/text_12" />
+
+        <RadioButton
+            android:id="@+id/rb_me"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:button="@null"
+            android:drawableTop="@drawable/me_selector"
+            android:gravity="center"
+            android:text="@string/me"
+            android:textColor="@color/tv_color_selector"
+            android:textSize="@dimen/text_12" />
+    </RadioGroup>
+
+</LinearLayout>

@@ -1,0 +1,3 @@
+int attr init_lazy_item_offset 0x7f010000
+int[] styleable LazyViewPager { 0x7f010000 }
+int styleable LazyViewPager_init_lazy_item_offset 0

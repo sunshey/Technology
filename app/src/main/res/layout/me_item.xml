@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/dimen_15"
+    android:paddingLeft="@dimen/dimen_10"
+    android:paddingRight="@dimen/dimen_10"
+    android:paddingTop="@dimen/dimen_15">
+
+    <TextView
+        android:id="@+id/tv_me_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="使用说明"
+        android:textColor="@color/black_515151"
+        android:textSize="@dimen/text_14" />
+
+
+    <ImageView
+        android:id="@+id/iv_arrow"
+        android:layout_width="15dp"
+        android:layout_height="15dp"
+        android:layout_alignParentRight="true"
+        android:src="@drawable/arrow_right" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="@dimen/dimen_5"
+        android:layout_toLeftOf="@id/iv_arrow"
+        android:text="推荐有奖"
+        android:visibility="gone" />
+
+
+</RelativeLayout>

@@ -1,0 +1,42 @@
+-- Merging decision tree log ---
+manifest
+ADDED from D:\AndroidStudioProjects\Technology\library\src\main\AndroidManifest.xml:2:1-11:12
+	package
+		ADDED from D:\AndroidStudioProjects\Technology\library\src\main\AndroidManifest.xml:3:11-44
+		INJECTED from D:\AndroidStudioProjects\Technology\library\src\main\AndroidManifest.xml
+		INJECTED from D:\AndroidStudioProjects\Technology\library\src\main\AndroidManifest.xml
+	android:versionName
+		ADDED from D:\AndroidStudioProjects\Technology\library\src\main\AndroidManifest.xml:5:11-36
+		INJECTED from D:\AndroidStudioProjects\Technology\library\src\main\AndroidManifest.xml
+		INJECTED from D:\AndroidStudioProjects\Technology\library\src\main\AndroidManifest.xml
+	android:versionCode
+		ADDED from D:\AndroidStudioProjects\Technology\library\src\main\AndroidManifest.xml:4:11-34
+		INJECTED from D:\AndroidStudioProjects\Technology\library\src\main\AndroidManifest.xml
+		INJECTED from D:\AndroidStudioProjects\Technology\library\src\main\AndroidManifest.xml
+	xmlns:android
+		ADDED from D:\AndroidStudioProjects\Technology\library\src\main\AndroidManifest.xml:2:11-69
+uses-sdk
+ADDED from D:\AndroidStudioProjects\Technology\library\src\main\AndroidManifest.xml:7:5-43
+MERGED from [com.android.support:support-v4:25.2.0] D:\AndroidStudioProjects\Technology\library\build\intermediates\exploded-aar\com.android.support\support-v4\25.2.0\AndroidManifest.xml:21:5-23:54
+MERGED from [com.android.support:support-compat:25.2.0] D:\AndroidStudioProjects\Technology\library\build\intermediates\exploded-aar\com.android.support\support-compat\25.2.0\AndroidManifest.xml:21:5-23:58
+MERGED from [com.android.support:support-media-compat:25.2.0] D:\AndroidStudioProjects\Technology\library\build\intermediates\exploded-aar\com.android.support\support-media-compat\25.2.0\AndroidManifest.xml:21:5-23:63
+MERGED from [com.android.support:support-core-utils:25.2.0] D:\AndroidStudioProjects\Technology\library\build\intermediates\exploded-aar\com.android.support\support-core-utils\25.2.0\AndroidManifest.xml:21:5-23:61
+MERGED from [com.android.support:support-core-ui:25.2.0] D:\AndroidStudioProjects\Technology\library\build\intermediates\exploded-aar\com.android.support\support-core-ui\25.2.0\AndroidManifest.xml:21:5-23:58
+MERGED from [com.android.support:support-fragment:25.2.0] D:\AndroidStudioProjects\Technology\library\build\intermediates\exploded-aar\com.android.support\support-fragment\25.2.0\AndroidManifest.xml:21:5-23:60
+	tools:overrideLibrary
+		ADDED from [com.android.support:support-v4:25.2.0] D:\AndroidStudioProjects\Technology\library\build\intermediates\exploded-aar\com.android.support\support-v4\25.2.0\AndroidManifest.xml:23:9-51
+	android:targetSdkVersion
+		INJECTED from D:\AndroidStudioProjects\Technology\library\src\main\AndroidManifest.xml
+		INJECTED from D:\AndroidStudioProjects\Technology\library\src\main\AndroidManifest.xml
+	android:minSdkVersion
+		ADDED from D:\AndroidStudioProjects\Technology\library\src\main\AndroidManifest.xml:7:15-40
+		INJECTED from D:\AndroidStudioProjects\Technology\library\src\main\AndroidManifest.xml
+		INJECTED from D:\AndroidStudioProjects\Technology\library\src\main\AndroidManifest.xml
+application
+ADDED from D:\AndroidStudioProjects\Technology\library\src\main\AndroidManifest.xml:9:5-20
+MERGED from [com.android.support:support-v4:25.2.0] D:\AndroidStudioProjects\Technology\library\build\intermediates\exploded-aar\com.android.support\support-v4\25.2.0\AndroidManifest.xml:25:5-20
+MERGED from [com.android.support:support-compat:25.2.0] D:\AndroidStudioProjects\Technology\library\build\intermediates\exploded-aar\com.android.support\support-compat\25.2.0\AndroidManifest.xml:25:5-20
+MERGED from [com.android.support:support-media-compat:25.2.0] D:\AndroidStudioProjects\Technology\library\build\intermediates\exploded-aar\com.android.support\support-media-compat\25.2.0\AndroidManifest.xml:25:5-20
+MERGED from [com.android.support:support-core-utils:25.2.0] D:\AndroidStudioProjects\Technology\library\build\intermediates\exploded-aar\com.android.support\support-core-utils\25.2.0\AndroidManifest.xml:25:5-20
+MERGED from [com.android.support:support-core-ui:25.2.0] D:\AndroidStudioProjects\Technology\library\build\intermediates\exploded-aar\com.android.support\support-core-ui\25.2.0\AndroidManifest.xml:25:5-20
+MERGED from [com.android.support:support-fragment:25.2.0] D:\AndroidStudioProjects\Technology\library\build\intermediates\exploded-aar\com.android.support\support-fragment\25.2.0\AndroidManifest.xml:25:5-20

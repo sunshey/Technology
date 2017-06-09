@@ -1,0 +1,21 @@
+<resources>
+    <string name="app_name">酷学</string>
+    <string name="home">首页</string>
+    <string name="community">社区</string>
+    <string name="me">我的</string>
+    <string name="save">保存</string>
+    <string name="page_pb">%1$d/10</string>
+
+    <string-array name="community_items">
+        <item>推荐</item>
+        <item>视频</item>
+        <item>美图</item>
+
+    </string-array>
+    <string-array name="me_items">
+        <item>使用说明</item>
+        <item>清除缓存</item>
+        <item>关于我们</item>
+    </string-array>
+
+</resources>

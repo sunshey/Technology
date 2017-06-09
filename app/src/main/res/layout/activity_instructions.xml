@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:id="@+id/rl_main"
+    android:padding="@dimen/dimen_15">
+
+    <include layout="@layout/activity_common_header" />
+
+    <TextView
+        android:layout_marginTop="@dimen/dimen_15"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="       酷学是一款学习最新Android知识类的应用，里面既有当前最热知识，还有休闲娱乐视频，以及可爱的妹子图，你在学习之余也可以一饱眼福哦~~~
+\n特此声明：大部分数据来自干货集中营，在此深表感谢！！！"
+        android:textColor="@color/black_515151"
+        android:textSize="@dimen/text_16" />
+
+</RelativeLayout>
