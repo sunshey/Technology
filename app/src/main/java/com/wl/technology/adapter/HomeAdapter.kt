@@ -21,20 +21,11 @@ class HomeAdapter(context: Context?, mList: List<DataBeanInfo.DataBeanItem>?) : 
 
 
     override fun getLayoutID(viewType: Int): Int {
-        if (viewType == ITEM) {
-            return R.layout.home_item
-        } else if (viewType == ITEM_FOOTER) {
-            return R.layout.item_footer
-        }
-        return 0
+
+        return R.layout.home_item
     }
 
-    override fun getItemViewType(position: Int): Int {
-        if (position + 1 == itemCount && mIsFullScreen) {
-            return ITEM_FOOTER
-        }
-        return ITEM
-    }
+
 
     override fun convert(holder: BaseViewHolder?, position: Int) {
         if (holder!!.itemViewType == ITEM) {
@@ -79,7 +70,5 @@ class HomeAdapter(context: Context?, mList: List<DataBeanInfo.DataBeanItem>?) : 
         }
     }
 
-    override fun getTotalCount(): Int {
-        return if (mIsFullScreen) mList.size + 1 else mList.size
-    }
+
 }

@@ -23,7 +23,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Android 多状态加载布局的开发 Tips"
-            android:textSize="@dimen/text_16" />
+            android:textSize="@dimen/text_16"
+            android:textColor="@color/black_515151"/>
 
         <LinearLayout
             android:layout_width="match_parent"

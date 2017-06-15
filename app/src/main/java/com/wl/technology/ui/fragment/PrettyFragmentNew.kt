@@ -105,7 +105,7 @@ class PrettyFragmentNew : BaseCommonFragment(), PrettyAdapterNew.onClickListener
                 itemList = beanInfo.results
 
                 if (!beanInfo.isError) {//请求成功
-                    state_current = STATE_LOADING_FINISH
+                    multipleStatusLayout!!.showContent()
                     if (isLoadMore) {
                         isScroll = !(itemList == null || itemList!!.isEmpty())
                         adapter!!.addData(itemList, isScroll!!, recyviewUtils!!.isFullScreen)
@@ -114,20 +114,31 @@ class PrettyFragmentNew : BaseCommonFragment(), PrettyAdapterNew.onClickListener
 
                     }
                     Observable.just(page).subscribeOn(Schedulers.io()).subscribe { saveDatabases(itemList) }
+                } else {
+                    multipleStatusLayout!!.showError()
                 }
 
 
             })
         } else {
+
             getReultData(page - 1, "福利").observeOn(AndroidSchedulers.mainThread()).subscribe {
+                itemList = it
+                if (page == 1 && it.isEmpty()) {
+                    multipleStatusLayout!!.showNoNetwork()
+                }
                 if (it.isEmpty()) {
                     isScroll = false
-                }
-                LogUtil.d("greenDAO  ${it.size}  $it")
-                if (isLoadMore) {
-                    adapter!!.addData(it, isScroll!!, recyviewUtils!!.isFullScreen)
+
                 } else {
-                    adapter!!.setData(it, isScroll!!)
+                    multipleStatusLayout!!.showContent()
+                }
+
+                LogUtil.d("greenDAO  ${itemList!!.size}  $it")
+                if (isLoadMore) {
+                    adapter!!.addData(itemList, isScroll!!, recyviewUtils!!.isFullScreen)
+                } else {
+                    adapter!!.setData(itemList, isScroll!!)
                     toast("网络被外星人偷走了，请检查网络...")
                 }
 
@@ -149,16 +160,9 @@ class PrettyFragmentNew : BaseCommonFragment(), PrettyAdapterNew.onClickListener
     override fun onClick(position: Int) {
 
         val intent = Intent(activity, ImageDetailActivity::class.java)
-        if (NetworkUtils.checkNet(context)) {
-            intent.putExtra("it", itemList as Serializable)
-        } else {
-            getReultData(page - 1, "福利").observeOn(AndroidSchedulers.mainThread()).subscribe {
-                if (it != null && it.isNotEmpty()) {
-                    LogUtil.d("greenDAO  ${it.size}  $it")
-                    intent.putExtra("it", it as Serializable)
-                }
-            }
-        }
+
+        intent.putExtra("it", itemList as Serializable)
+
         intent.putExtra("position", position)
         startActivityForResult(intent, BaseConstant.RESULT_OK)
 

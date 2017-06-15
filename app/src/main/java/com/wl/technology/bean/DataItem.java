@@ -38,11 +38,13 @@ public class DataItem implements Serializable {
 
     private String who;
     private boolean used;
+    //是否已读
+    private boolean isRead = false;
 
-    @Generated(hash = 1148939214)
+    @Generated(hash = 408464485)
     public DataItem(Long id, @NotNull String _id, String desc, String _images,
-            String publishedAt, String source, String type, String url, String who,
-            boolean used) {
+                    String publishedAt, String source, String type, String url, String who,
+                    boolean used, boolean isRead) {
         this.id = id;
         this._id = _id;
         this.desc = desc;
@@ -53,6 +55,7 @@ public class DataItem implements Serializable {
         this.url = url;
         this.who = who;
         this.used = used;
+        this.isRead = isRead;
     }
 
     @Generated(hash = 1750509646)
@@ -151,6 +154,13 @@ public class DataItem implements Serializable {
         return this.used;
     }
 
+    public boolean getIsRead() {
+        return this.isRead;
+    }
+
+    public void setIsRead(boolean isRead) {
+        this.isRead = isRead;
+    }
 
     @Override
     public String toString() {
@@ -168,7 +178,6 @@ public class DataItem implements Serializable {
                 ", used=" + used +
                 '}';
     }
-
 
 
 }

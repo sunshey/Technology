@@ -16,10 +16,6 @@ class MeAdapter(context: Context, mList: List<String>?) : BaseAdapter<String>(co
         return R.layout.me_item
     }
 
-    override fun getTotalCount(): Int {
-        return mList.size
-
-    }
 
     override fun convert(holder: BaseViewHolder?, position: Int) {
         holder!!.setText(R.id.tv_me_title, mList[position])

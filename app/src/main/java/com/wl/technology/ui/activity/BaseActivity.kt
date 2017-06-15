@@ -1,12 +1,14 @@
 package com.wl.technology.ui.activity
 
 import android.app.Activity
+import android.graphics.Color
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
+import com.qihoo.appstore.common.updatesdk.lib.UpdateHelper
 import com.umeng.analytics.MobclickAgent
 import kotlinx.android.synthetic.main.activity_common_header.*
 
@@ -16,6 +18,7 @@ abstract class BaseActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(getLayoutID())
         supportActionBar!!.hide()
+        UpdateHelper.getInstance().init(applicationContext, Color.parseColor("#0A93DB"))
         init()
         initHeader()
     }
@@ -43,5 +46,9 @@ abstract class BaseActivity : AppCompatActivity() {
     override fun onPause() {
         super.onPause()
         MobclickAgent.onPause(this)
+    }
+
+    fun query() {
+
     }
 }

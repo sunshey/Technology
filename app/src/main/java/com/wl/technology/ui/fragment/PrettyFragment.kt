@@ -86,7 +86,7 @@ class PrettyFragment : BaseCommonFragment() {
             itemList = beanInfo.results
 
             if (!beanInfo.error) {//请求成功
-                state_current = STATE_LOADING_FINISH
+
                 if (isLoadMore) {
                     isScroll = !(itemList == null || itemList!!.isEmpty())
                     adapter!!.addData(itemList, isScroll!!, recyviewUtils!!.isFullScreen)

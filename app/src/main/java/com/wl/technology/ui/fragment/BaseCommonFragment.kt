@@ -8,6 +8,7 @@ import com.wl.technology.bean.DataItem
 import com.wl.technology.dao.DataItemDao
 import com.wl.technology.ui.activity.MyApp
 import com.wl.technology.util.LogUtil
+import com.wl.technology.widget.MultipleStatusLayout
 import rx.Observable
 import rx.schedulers.Schedulers
 
@@ -29,11 +30,14 @@ import rx.schedulers.Schedulers
  */
 abstract class BaseCommonFragment : BaseFragment(), SwipeRefreshLayout.OnRefreshListener {
     var swipeRefreshLayout: SwipeRefreshLayout? = null
+    var multipleStatusLayout: MultipleStatusLayout? = null
     private val itemDao = MyApp.getInstance().getDaoSession()!!.dataItemDao!!
     protected var page: Int = 1
     protected var isScroll: Boolean? = true
 
     override fun initView(view: View) {
+        multipleStatusLayout = view.findViewById(R.id.multipleStatusLayout) as MultipleStatusLayout
+        multipleStatusLayout!!.showLoading()
         swipeRefreshLayout = view.findViewById(R.id.swipeRefreshLayout) as SwipeRefreshLayout
         swipeRefreshLayout!!.isRefreshing = true
 

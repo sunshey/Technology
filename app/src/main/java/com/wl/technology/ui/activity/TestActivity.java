@@ -3,6 +3,12 @@ package com.wl.technology.ui.activity;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.widget.EditText;
+
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+import com.wl.technology.constant.SPConstant;
+import com.wl.technology.util.SPUtils;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -22,6 +28,7 @@ public class TestActivity extends AppCompatActivity {
 
     private List<String> list = new ArrayList<>();
 
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,6 +38,7 @@ public class TestActivity extends AppCompatActivity {
         list.add("qwe");
         String path = "";
         File file = new File(path);
+
         try {
             InputStream fis = new FileInputStream(file);
             OutputStream fos = new FileOutputStream(file);

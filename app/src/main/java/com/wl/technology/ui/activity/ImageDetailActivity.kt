@@ -40,11 +40,13 @@ class ImageDetailActivity : BaseActivity(), View.OnClickListener {
     override fun init() {
         i = intent
         if (i != null) {
-            imageList = i!!.getSerializableExtra("it") as ArrayList<DataItem>
+            val extra = i!!.getSerializableExtra("it")
+            if (extra != null) {
+                imageList = extra as ArrayList<DataItem>
+            }
             postion = i!!.getIntExtra("position", -1)
 
         }
-
 
         val adapter = ImageDetailAdapter(this, imageList)
         view_pager.adapter = adapter

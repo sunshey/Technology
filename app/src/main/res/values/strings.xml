@@ -5,6 +5,15 @@
     <string name="me">我的</string>
     <string name="save">保存</string>
     <string name="page_pb">%1$d/10</string>
+    <string name="empty_view_hint">暂无数据</string>
+    <string name="error_view_hint">加载失败</string>
+    <string name="loading">加载中,请稍候...</string>
+    <string name="no_network_view_hint">网络异常</string>
+    <string name="search">搜索</string>
+    <string name="history_record">历史记录</string>
+    <string name="query_recommend">查看全部推荐词</string>
+    <string name="query_want_to_query">找你想找的</string>
+    <string name="done">完成</string>
 
     <string-array name="community_items">
         <item>推荐</item>

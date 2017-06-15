@@ -1,20 +1,18 @@
 package com.wl.technology.ui.fragment
 
+import android.content.Intent
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
-import android.util.Log
 import android.view.View
 import com.example.comm_recyclviewadapter.BaseItemDecoration
 import com.example.comm_recyclviewadapter.RecycleViewUtils
 import com.google.gson.Gson
 import com.wl.technology.R
 import com.wl.technology.adapter.HomeAdapterNew
-import com.wl.technology.bean.DataBeanInfo
 import com.wl.technology.bean.DataInfo
 import com.wl.technology.bean.DataItem
 import com.wl.technology.constant.NetConstant
-import com.wl.technology.dao.DataItemDao
-import com.wl.technology.ui.activity.MyApp
+import com.wl.technology.ui.activity.SearchActivity
 import com.wl.technology.util.LogUtil
 import com.wl.technology.util.NetworkUtils
 import kotlinx.android.synthetic.main.fragment_home.*
@@ -26,7 +24,7 @@ import rx.schedulers.Schedulers
  *
  * Created by wanglin  on 2017/6/5 10:23.
  */
-class HomeFragmentNew : BaseCommonFragment() {
+class HomeFragmentNew : BaseCommonFragment(), View.OnClickListener {
 
 
     private var adapter: HomeAdapterNew? = null
@@ -76,6 +74,8 @@ class HomeFragmentNew : BaseCommonFragment() {
                 lastVisibleItemPosition = layoutManager!!.findLastVisibleItemPosition()
             }
         })
+
+        tv_search.setOnClickListener(this)
     }
 
 
@@ -83,14 +83,14 @@ class HomeFragmentNew : BaseCommonFragment() {
         if (isLoadMore) page++
         if (NetworkUtils.checkNet(context)) {
             get(NetConstant.net_android + "/$page").observeOn(AndroidSchedulers.mainThread()).subscribe({
-                Log.i(TAG, it)
+                //                Log.i(TAG, it)
 
                 val gson = Gson()
                 val beanInfo = gson.fromJson(it, DataInfo::class.java)
 
-                dataBeans = beanInfo.results
-
-                if (!beanInfo.isError) {//请求成功
+                if (beanInfo != null && !beanInfo.isError) {//请求成功
+                    dataBeans = beanInfo.results
+                    multipleStatusLayout!!.showContent()
                     if (isLoadMore) {
                         isScroll = !(dataBeans == null || dataBeans!!.isEmpty())
                         adapter!!.addData(dataBeans, isScroll!!, recyviewUtils!!.isFullScreen)
@@ -98,6 +98,8 @@ class HomeFragmentNew : BaseCommonFragment() {
                         adapter!!.setData(dataBeans, isScroll!!)
                     }
                     Observable.just(page).subscribeOn(Schedulers.io()).subscribe { saveDatabases(dataBeans) }
+                } else {
+                    multipleStatusLayout!!.showError()
                 }
 
             })
@@ -105,7 +107,11 @@ class HomeFragmentNew : BaseCommonFragment() {
 
             getReultData(page - 1, "Android").observeOn(AndroidSchedulers.mainThread()).subscribe { s ->
 
+                if (page == 1 && s.isEmpty()) {
+                    multipleStatusLayout!!.showNoNetwork()
+                }
                 if (s.isNotEmpty()) {
+                    multipleStatusLayout!!.showContent()
 
                     s.forEach {
                         //                        LogUtil.d("greenDAO  ${s.size}  $page  $it")
@@ -119,6 +125,7 @@ class HomeFragmentNew : BaseCommonFragment() {
 
                 } else {
                     isScroll = false
+
                 }
                 LogUtil.i("dataBeans  $dataBeans")
                 if (isLoadMore) {
@@ -142,6 +149,15 @@ class HomeFragmentNew : BaseCommonFragment() {
     override fun onResume() {
         super.onResume()
         adapter!!.notifyDataSetChanged()
+    }
+
+    override fun onClick(v: View?) {
+        when (v!!.id) {
+            R.id.tv_search -> {
+                val intent = Intent(activity, SearchActivity::class.java)
+                context.startActivity(intent)
+            }
+        }
     }
 }
 

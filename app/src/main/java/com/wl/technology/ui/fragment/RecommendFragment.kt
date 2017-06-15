@@ -51,10 +51,12 @@ class RecommendFragment : BaseCommonFragment() {
             var lastPosition: Int = -1
             override fun onScrollStateChanged(recyclerView: RecyclerView?, newState: Int) {
                 super.onScrollStateChanged(recyclerView, newState)
-                val itemCount = layoutManager!!.itemCount
-                recycleViewUtils = RecycleViewUtils(recycleView_recommend)
-                if (newState == RecyclerView.SCROLL_STATE_IDLE && lastPosition == itemCount - 1 && recycleViewUtils!!.isFullScreen && isScroll!!) {
-                    getData(true)
+                if (layoutManager != null) {
+                    val itemCount = layoutManager!!.itemCount
+                    recycleViewUtils = RecycleViewUtils(recycleView_recommend)
+                    if (newState == RecyclerView.SCROLL_STATE_IDLE && lastPosition == itemCount - 1 && recycleViewUtils!!.isFullScreen && isScroll!!) {
+                        getData(true)
+                    }
                 }
             }
 
@@ -70,12 +72,12 @@ class RecommendFragment : BaseCommonFragment() {
     override fun getData(isLoadMore: Boolean) {
         if (isLoadMore) page++
         if (NetworkUtils.checkNet(context)) {//有网请求网络
-            get(NetConstant.net_expand + "/$page").observeOn(AndroidSchedulers.mainThread()).subscribe {
+            get(NetConstant.net_recommend + "/$page").observeOn(AndroidSchedulers.mainThread()).subscribe {
                 LogUtil.i(it)
                 val gson = Gson()
                 val dataInfo = gson.fromJson(it, DataInfo::class.java)
                 if (!dataInfo.error) {
-                    state_current =STATE_LOADING_FINISH
+                    multipleStatusLayout!!.showContent()
                     dataBeans = dataInfo.results
                     if (isLoadMore) {
                         isScroll = !(dataBeans == null || dataBeans!!.isEmpty())
@@ -86,15 +88,20 @@ class RecommendFragment : BaseCommonFragment() {
 
                     Observable.just("").subscribeOn(Schedulers.io()).subscribe { saveDatabases(dataBeans) }
 
+                } else {
+                    multipleStatusLayout!!.showError()
                 }
 
 
             }
         } else {//没网从数据库读取
-            getReultData(page, "拓展资源").observeOn(AndroidSchedulers.mainThread()).subscribe { s ->
+            getReultData(page - 1, "拓展资源").observeOn(AndroidSchedulers.mainThread()).subscribe { s ->
 
+                if (page == 1 && s.isEmpty()) {
+                    multipleStatusLayout!!.showNoNetwork()
+                }
                 if (s.isNotEmpty()) {
-
+                    multipleStatusLayout!!.showContent()
                     s.forEach {
                         LogUtil.d("greenDAO  ${s.size}  $page  $it")
                         if (it._images != null) {
@@ -107,6 +114,7 @@ class RecommendFragment : BaseCommonFragment() {
 
                 } else {
                     isScroll = false
+
                 }
                 LogUtil.i("dataBeans  $dataBeans")
                 if (isLoadMore) {
@@ -127,8 +135,6 @@ class RecommendFragment : BaseCommonFragment() {
         super.onResume()
         adapter!!.notifyDataSetChanged()
     }
-
-
 
 
 }

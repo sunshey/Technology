@@ -9,7 +9,11 @@ import com.wl.technology.R
 import com.wl.technology.bean.DataItem
 import com.wl.technology.ui.activity.ArticleDetailActivity
 import com.wl.technology.util.AnimationUtil
+import com.wl.technology.util.DbUtils
 import com.wl.technology.util.SPUtils
+import rx.Observable
+import rx.android.schedulers.AndroidSchedulers
+import rx.schedulers.Schedulers
 
 /**
  *
@@ -19,65 +23,41 @@ class HomeAdapterNew(context: Context?, mList: List<DataItem>?) : BaseAdapter<Da
 
 
     override fun getLayoutID(viewType: Int): Int {
-        if (viewType == ITEM) {
-            return R.layout.home_item
-        } else if (viewType == ITEM_FOOTER) {
-            return R.layout.item_footer
-        }
-        return 0
+
+        return R.layout.home_item
     }
 
-    override fun getItemViewType(position: Int): Int {
-        if (position + 1 == itemCount && mIsFullScreen) {
-            return ITEM_FOOTER
-        }
-        return ITEM
-    }
 
     override fun convert(holder: BaseViewHolder?, position: Int) {
-        if (holder!!.itemViewType == ITEM) {
-            val dataBeanItem = mList[position]
 
-            holder.setText(R.id.tv_title, dataBeanItem.desc)
-            if (dataBeanItem.images != null && dataBeanItem.images!!.isNotEmpty()) {
-                holder.setImageUrl(mContext, R.id.iv, dataBeanItem.images!![0])
-            } else {
-                holder.setImageUrl(mContext, R.id.iv, "http://img.gank.io/6ade6383-bc8e-40e4-9919-605901ad0ca5?imageView1/0/w/100 ")
-            }
-            holder.setText(R.id.tv_who, dataBeanItem.who)
-            holder.setText(R.id.tv_time, dataBeanItem.publishedAt)
-            val isRead = SPUtils.getBoolean(mContext, dataBeanItem._id, false)
+        val dataBeanItem = mList[position]
 
-            if (isRead) {
+        holder!!.setText(R.id.tv_title, dataBeanItem.desc)
+        if (dataBeanItem.images != null && dataBeanItem.images!!.isNotEmpty()) {
+            holder.setImageUrl(mContext, R.id.iv, dataBeanItem.images!![0])
+        } else {
+            holder.setImageUrl(mContext, R.id.iv, "http://img.gank.io/6ade6383-bc8e-40e4-9919-605901ad0ca5?imageView1/0/w/100 ")
+        }
+        holder.setText(R.id.tv_who, dataBeanItem.who)
+        holder.setText(R.id.tv_time, dataBeanItem.publishedAt)
+
+        DbUtils.queryDataById(dataBeanItem._id).observeOn(AndroidSchedulers.mainThread()).subscribe {
+            if (it != null && it.isRead) {
                 holder.setTextColor(R.id.tv_title, mContext.resources.getColor(R.color.gray_e6e6e6))
-            }
-
-            holder.itemView.setOnClickListener {
-                val intent = Intent(mContext, ArticleDetailActivity::class.java)
-                intent.putExtra("dataBeanItem", dataBeanItem)
-                SPUtils.put(mContext, dataBeanItem._id, true)
-                mContext.startActivity(intent)
-            }
-
-
-        } else if (holder.itemViewType == ITEM_FOOTER) {
-            if (!mIsScroll) {
-
-                holder.setVisible(R.id.iv_circle, false)
-
-                holder.setText(R.id.tv_msg, "没有更多数据啦")
             } else {
-
-                holder.setVisible(R.id.iv_circle, true)
-
-                holder.getView<ImageView>(R.id.iv_circle).startAnimation(AnimationUtil.rotaAnimation())
-                holder.setText(R.id.tv_msg, "加载中...")
-
+                holder.setTextColor(R.id.tv_title, mContext.resources.getColor(R.color.black_515151))
             }
         }
+
+        holder.itemView.setOnClickListener {
+            val intent = Intent(mContext, ArticleDetailActivity::class.java)
+            intent.putExtra("dataBeanItem", dataBeanItem)
+            Observable.just(dataBeanItem._id).subscribeOn(Schedulers.io()).subscribe { DbUtils.updataData(it, true) }
+
+            mContext.startActivity(intent)
+        }
+
+
     }
 
-    override fun getTotalCount(): Int {
-        return if (mIsFullScreen) mList.size + 1 else mList.size
-    }
 }

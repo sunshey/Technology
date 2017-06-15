@@ -7,6 +7,7 @@ package com.wl.technology.constant
 interface SPConstant {
     companion object {
         val SP_NAME = "technology"
+        val SEARCH_LIST="search_list"
     }
 
 }

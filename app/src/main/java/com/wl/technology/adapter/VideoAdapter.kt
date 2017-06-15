@@ -37,9 +37,6 @@ class VideoAdapter(context: Context?, mList: List<DataBeanInfo.DataBeanItem>?) :
 
     }
 
-    override fun getTotalCount(): Int {
-        return mList.size
-    }
 
 
 }

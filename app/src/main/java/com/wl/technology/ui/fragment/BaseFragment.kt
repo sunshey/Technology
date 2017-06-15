@@ -8,34 +8,26 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import com.umeng.analytics.MobclickAgent
+import com.wl.technology.R
 import com.wl.technology.util.LogUtil
 import okhttp3.FormBody
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import rx.Observable
 import rx.schedulers.Schedulers
+import java.util.concurrent.TimeUnit
 
 /**
  *
  * Created by wanglin  on 2017/5/26 15:26.
+ *
  */
 abstract class BaseFragment : Fragment() {
     protected var TAG = javaClass.name!!
-    private val http = OkHttpClient.Builder().build()!!
-    /**
-     * 页面正在加载中
-     */
-    protected val STATE_LOADING = 1
-    /**
-     * 页面加载完成
-     */
-    protected val STATE_LOADING_FINISH = 2
-    /**
-     * 当前页面无网络且无缓存数据
-     */
-    protected val STATE_NOT_NETWORK_AND_NOT_CACHE = 3
-
-    protected var state_current = STATE_LOADING//当前页面状态默认为加载中
+    private val http = OkHttpClient.Builder()
+            .connectTimeout(5000, TimeUnit.MILLISECONDS)
+            .readTimeout(5000, TimeUnit.MILLISECONDS)
+            .writeTimeout(5000, TimeUnit.MILLISECONDS).build()!!
 
     /**
      * rootView是否初始化标志，防止回调函数在rootView为空的时候触发
@@ -53,7 +45,6 @@ abstract class BaseFragment : Fragment() {
     protected var rootView: View? = null
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-
         if (rootView == null) {
             rootView = View.inflate(context, getFragmentId(), null)
         }
@@ -93,7 +84,6 @@ abstract class BaseFragment : Fragment() {
                     .url(url)
                     .build()
             LogUtil.i("url  $url")
-            state_current = STATE_LOADING
 
             return http.newCall(request).execute().body().string()
         } catch (e: Exception) {

@@ -28,11 +28,12 @@ class ImageDetailAdapter() : PagerAdapter() {
 
 
     override fun getCount(): Int {
-        return mList!!.size
+        return if (mList == null) 0 else mList!!.size
     }
 
     override fun instantiateItem(container: ViewGroup?, position: Int): Any {
         val view = View.inflate(mContext, R.layout.item_image_detail, null)
+
         val iv = view.findViewById(R.id.iv_image_detail) as ImageView
         container!!.addView(view)
         val dataItem = mList!![position]

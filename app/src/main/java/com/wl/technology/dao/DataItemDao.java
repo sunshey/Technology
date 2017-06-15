@@ -34,6 +34,7 @@ public class DataItemDao extends AbstractDao<DataItem, Long> {
         public final static Property Url = new Property(7, String.class, "url", false, "URL");
         public final static Property Who = new Property(8, String.class, "who", false, "WHO");
         public final static Property Used = new Property(9, boolean.class, "used", false, "USED");
+        public final static Property IsRead = new Property(10, boolean.class, "isRead", false, "IS_READ");
     }
 
 
@@ -58,7 +59,8 @@ public class DataItemDao extends AbstractDao<DataItem, Long> {
                 "\"TYPE\" TEXT," + // 6: type
                 "\"URL\" TEXT," + // 7: url
                 "\"WHO\" TEXT," + // 8: who
-                "\"USED\" INTEGER NOT NULL );"); // 9: used
+                "\"USED\" INTEGER NOT NULL ," + // 9: used
+                "\"IS_READ\" INTEGER NOT NULL );"); // 10: isRead
     }
 
     /** Drops the underlying database table. */
@@ -112,6 +114,7 @@ public class DataItemDao extends AbstractDao<DataItem, Long> {
             stmt.bindString(9, who);
         }
         stmt.bindLong(10, entity.getUsed() ? 1L: 0L);
+        stmt.bindLong(11, entity.getIsRead() ? 1L: 0L);
     }
 
     @Override
@@ -159,6 +162,7 @@ public class DataItemDao extends AbstractDao<DataItem, Long> {
             stmt.bindString(9, who);
         }
         stmt.bindLong(10, entity.getUsed() ? 1L: 0L);
+        stmt.bindLong(11, entity.getIsRead() ? 1L: 0L);
     }
 
     @Override
@@ -178,7 +182,8 @@ public class DataItemDao extends AbstractDao<DataItem, Long> {
             cursor.isNull(offset + 6) ? null : cursor.getString(offset + 6), // type
             cursor.isNull(offset + 7) ? null : cursor.getString(offset + 7), // url
             cursor.isNull(offset + 8) ? null : cursor.getString(offset + 8), // who
-            cursor.getShort(offset + 9) != 0 // used
+            cursor.getShort(offset + 9) != 0, // used
+            cursor.getShort(offset + 10) != 0 // isRead
         );
         return entity;
     }
@@ -195,6 +200,7 @@ public class DataItemDao extends AbstractDao<DataItem, Long> {
         entity.setUrl(cursor.isNull(offset + 7) ? null : cursor.getString(offset + 7));
         entity.setWho(cursor.isNull(offset + 8) ? null : cursor.getString(offset + 8));
         entity.setUsed(cursor.getShort(offset + 9) != 0);
+        entity.setIsRead(cursor.getShort(offset + 10) != 0);
      }
     
     @Override

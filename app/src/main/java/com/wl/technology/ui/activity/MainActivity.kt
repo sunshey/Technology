@@ -7,14 +7,13 @@ import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.RadioGroup
 import android.widget.TextView
+import com.qihoo.appstore.common.updatesdk.lib.UpdateHelper
 import com.wl.technology.R
 import com.wl.technology.ui.fragment.CommunityFragment
-import com.wl.technology.ui.fragment.HomeFragment
 import com.wl.technology.ui.fragment.HomeFragmentNew
 import com.wl.technology.ui.fragment.MeFragment
-import kotlinx.android.synthetic.main.activity_main.*
 import fm.jiecao.jcvideoplayer_lib.JCVideoPlayer
-
+import kotlinx.android.synthetic.main.activity_main.*
 
 
 class MainActivity : BaseActivity(), RadioGroup.OnCheckedChangeListener {
@@ -30,7 +29,8 @@ class MainActivity : BaseActivity(), RadioGroup.OnCheckedChangeListener {
     }
 
     override fun init() {
-//        toast("测试")
+        UpdateHelper.getInstance().autoUpdate(packageName, false, 5000)
+
         initData()
 
         val bt = supportFragmentManager.beginTransaction()

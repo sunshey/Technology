@@ -86,7 +86,7 @@ class VideoFragment : BaseCommonFragment() {
         if (isLoadMore) page++
         dataBeans = ArrayList<DataBeanInfo.DataBeanItem>()
         Cheeses.VIDEO_URLS.forEachIndexed { index, s ->
-
+            multipleStatusLayout!!.showContent()
             val dataBeanItem = DataBeanInfo.DataBeanItem(s)
             dataBeanItem.url = s
             if (index < Cheeses.VIDEO_TITLES.size)
@@ -95,7 +95,7 @@ class VideoFragment : BaseCommonFragment() {
         }
         videoAdapter!!.setData(dataBeans, isScroll!!)
         if (swipeRefreshLayout!!.isRefreshing)
-                swipeRefreshLayout!!.isRefreshing = false
+            swipeRefreshLayout!!.isRefreshing = false
     }
 
 
