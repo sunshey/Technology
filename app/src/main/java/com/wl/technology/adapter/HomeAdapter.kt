@@ -28,10 +28,10 @@ class HomeAdapter(context: Context?, mList: List<DataBeanInfo.DataBeanItem>?) : 
 
 
     override fun convert(holder: BaseViewHolder?, position: Int) {
-        if (holder!!.itemViewType == ITEM) {
+
             val dataBeanItem = mList[position]
 
-            holder.setText(R.id.tv_title, dataBeanItem.desc)
+            holder!!.setText(R.id.tv_title, dataBeanItem.desc)
             if (dataBeanItem.images != null && dataBeanItem.images!!.isNotEmpty()) {
                 holder.setImageUrl(mContext, R.id.iv, dataBeanItem.images!![0])
             } else {
@@ -53,21 +53,7 @@ class HomeAdapter(context: Context?, mList: List<DataBeanInfo.DataBeanItem>?) : 
             }
 
 
-        } else if (holder.itemViewType == ITEM_FOOTER) {
-            if (!mIsScroll) {
 
-                holder.setVisible(R.id.iv_circle, false)
-
-                holder.setText(R.id.tv_msg, "没有更多数据啦")
-            } else {
-
-                holder.setVisible(R.id.iv_circle, true)
-
-                holder.getView<ImageView>(R.id.iv_circle).startAnimation(AnimationUtil.rotaAnimation())
-                holder.setText(R.id.tv_msg, "加载中...")
-
-            }
-        }
     }
 
 

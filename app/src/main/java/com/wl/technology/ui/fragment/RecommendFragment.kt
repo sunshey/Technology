@@ -76,7 +76,7 @@ class RecommendFragment : BaseCommonFragment() {
                 LogUtil.i(it)
                 val gson = Gson()
                 val dataInfo = gson.fromJson(it, DataInfo::class.java)
-                if (!dataInfo.error) {
+                if (dataInfo != null && !dataInfo.error) {
                     multipleStatusLayout!!.showContent()
                     dataBeans = dataInfo.results
                     if (isLoadMore) {
@@ -89,7 +89,7 @@ class RecommendFragment : BaseCommonFragment() {
                     Observable.just("").subscribeOn(Schedulers.io()).subscribe { saveDatabases(dataBeans) }
 
                 } else {
-                    multipleStatusLayout!!.showError()
+                    if(page==1)  multipleStatusLayout!!.showError()
                 }
 
 

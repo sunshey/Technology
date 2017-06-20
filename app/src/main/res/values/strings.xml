@@ -14,6 +14,7 @@
     <string name="query_recommend">查看全部推荐词</string>
     <string name="query_want_to_query">找你想找的</string>
     <string name="done">完成</string>
+    <string name="more">更多</string>
 
     <string-array name="community_items">
         <item>推荐</item>

@@ -102,9 +102,9 @@ class PrettyFragmentNew : BaseCommonFragment(), PrettyAdapterNew.onClickListener
 
                 val gson = Gson()
                 val beanInfo = gson.fromJson(it, DataInfo::class.java)
-                itemList = beanInfo.results
 
-                if (!beanInfo.isError) {//请求成功
+                if (beanInfo != null && !beanInfo.isError) {//请求成功
+                    itemList = beanInfo.results
                     multipleStatusLayout!!.showContent()
                     if (isLoadMore) {
                         isScroll = !(itemList == null || itemList!!.isEmpty())
@@ -115,7 +115,7 @@ class PrettyFragmentNew : BaseCommonFragment(), PrettyAdapterNew.onClickListener
                     }
                     Observable.just(page).subscribeOn(Schedulers.io()).subscribe { saveDatabases(itemList) }
                 } else {
-                    multipleStatusLayout!!.showError()
+                    if (page == 1) multipleStatusLayout!!.showError()
                 }
 
 

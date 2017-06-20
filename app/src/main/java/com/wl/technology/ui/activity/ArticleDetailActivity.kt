@@ -27,6 +27,7 @@ import com.wl.technology.R
 import com.wl.technology.bean.DataBeanInfo
 import com.wl.technology.bean.DataItem
 import com.wl.technology.bean.PermissionBean
+import com.wl.technology.util.LogUtil
 import com.wl.technology.util.SPUtils
 import kotlinx.android.synthetic.main.activity_article_detail.*
 
@@ -149,15 +150,18 @@ class ArticleDetailActivity : BaseActivity(), View.OnClickListener {
         web.description = dataBeanItem!!.desc
 
         ShareAction(this)
-                .withText(dataBeanItem!!.desc)
-                .setDisplayList(SHARE_MEDIA.WEIXIN, SHARE_MEDIA.WEIXIN_CIRCLE)
-                .setShareboardclickCallback({ _, sharE_MEDIA ->
-                    if (sharE_MEDIA != null) {
-//                        LogUtil.i(sharE_MEDIA.name)
+                .setDisplayList(SHARE_MEDIA.WEIXIN, SHARE_MEDIA.WEIXIN_CIRCLE).addButton("more", "more", "more.png", "more.png")
+                .setShareboardclickCallback({ snsPlatform, shareE_MEDIA ->
+                    if (shareE_MEDIA != null) {
+                        LogUtil.i("shareE_MEDIA  ${shareE_MEDIA.name}")
                         ShareAction(this)
-                                .withMedia(web).setPlatform(sharE_MEDIA).setCallback(UmenListener()).share()
+                                .withMedia(web).setPlatform(shareE_MEDIA).setCallback(UmenListener()).share()
+
                     } else {
-                        toast("分享失败")
+                        if (snsPlatform.mKeyword == "more") {
+                            shareMore(dataBeanItem!!.desc, dataBeanItem!!.url)
+                        }
+//                        toast("分享失败")
                     }
 
                 })
@@ -165,6 +169,19 @@ class ArticleDetailActivity : BaseActivity(), View.OnClickListener {
 
     }
 
+    /**
+     * 分享更多
+     */
+    fun shareMore(desc: String, url: String?) {
+        val shareInt = Intent(Intent.ACTION_SEND)
+        shareInt.type = "text/plain"
+        shareInt.putExtra(Intent.EXTRA_TITLE, "分享到")
+        shareInt.putExtra(Intent.EXTRA_SUBJECT, desc)
+
+        shareInt.putExtra(Intent.EXTRA_TEXT, url)
+        shareInt.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+        startActivity(shareInt)
+    }
 
     class UmenListener : UMShareListener {
         override fun onResult(platform: SHARE_MEDIA?) {

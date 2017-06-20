@@ -99,7 +99,7 @@ class HomeFragmentNew : BaseCommonFragment(), View.OnClickListener {
                     }
                     Observable.just(page).subscribeOn(Schedulers.io()).subscribe { saveDatabases(dataBeans) }
                 } else {
-                    multipleStatusLayout!!.showError()
+                    if (page == 1) multipleStatusLayout!!.showError()
                 }
 
             })

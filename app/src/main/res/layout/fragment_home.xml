@@ -37,10 +37,10 @@
                 android:background="@drawable/search_bg"
                 android:drawableLeft="@drawable/search"
                 android:drawablePadding="@dimen/dimen_10"
-                android:singleLine="true"
                 android:ellipsize="end"
                 android:hint="java基础教程 | android 实战总结 | kotlin开发"
-                android:padding="@dimen/dimen_5" />
+                android:padding="@dimen/dimen_5"
+                android:singleLine="true" />
         </LinearLayout>
 
         <android.support.v4.widget.SwipeRefreshLayout
@@ -51,7 +51,9 @@
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/recycleView"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" />
+                android:layout_height="match_parent"
+                android:clipToPadding="false"
+                android:fitsSystemWindows="true" />
 
 
         </android.support.v4.widget.SwipeRefreshLayout>
