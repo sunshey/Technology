@@ -72,6 +72,8 @@ dependencies {
     compile 'org.greenrobot:eventbus:3.0.0'
     testCompile 'junit:junit:4.12'
     compile files('libs/360update-7.0.3.jar')
+    compile 'com.bilibili:boxing:0.8.0'
+//    compile 'com.bilibili:boxing-impl:0.8.0'
 }
 greendao {
     schemaVersion 1
